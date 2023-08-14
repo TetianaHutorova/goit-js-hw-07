@@ -23,21 +23,24 @@ function handlerGetOriginalSize(evt) {
   if (evt.currentTarget === evt.target) {
     return;
   }
-  const instance = basicLightbox.create(`
-    <img src="${evt.target.dataset.source}" width="800" height="600">`);
+  const instance = basicLightbox.create(
+    `
+    <img src="${evt.target.dataset.source}" width="800" height="600">`,
+    {
+      onShow: (instance) => {
+        window.addEventListener("keydown", handlercloseModal);
+      },
+      onClose: (instance) => {
+        window.removeEventListener("keydown", handlercloseModal);
+      },
+    }
+  );
 
   instance.show();
 
-  const visibleModal = basicLightbox.visible();
-
-  if (visibleModal) {
-    window.addEventListener(
-      "keydown",
-      window.addEventListener("keydown", (evt) => {
-        if (evt.code === "Escape") {
-          instance.close();
-        }
-      })
-    );
+  function handlercloseModal(evt) {
+    if (evt.code === "Escape") {
+      instance.close();
+    }
   }
 }

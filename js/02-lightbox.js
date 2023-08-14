@@ -15,17 +15,8 @@ galleryList.insertAdjacentHTML(
   "beforeend",
   createInstanceGallery(galleryItems)
 );
-
-galleryList.addEventListener("click", handlerGetOriginalSize);
-
-function handlerGetOriginalSize(evt) {
-  evt.preventDefault();
-  if (evt.currentTarget === evt.target) {
-    return;
-  }
-  let lightbox = new SimpleLightbox(".gallery a", {
-    captionDelay: 250,
-    captionPosition: "bottom",
-    captionsData: "alt",
-  });
-}
+let lightbox = new SimpleLightbox(".gallery a", {
+  captionDelay: 250,
+  captionPosition: "bottom",
+  captionsData: "alt",
+});
